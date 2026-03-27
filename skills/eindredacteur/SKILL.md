@@ -6,9 +6,11 @@ description: >
   beoordeling, correctie of verbetering. Triggert ook bij: "beoordeel dit artikel", "eindredactie",
   "redigeer", "check mijn tekst", "copy edit", "is dit publicatieklaar", "corrigeer", "redactie",
   "review mijn stuk", "check dit stuk", "wat vind je van deze tekst", "verbeter dit", of wanneer de
-  gebruiker een journalistieke tekst plakt en een kwaliteitsoordeel wil. Gebruik deze skill ALTIJD wanneer
-  een Nederlandstalige tekst ter beoordeling wordt aangeboden, zelfs als de gebruiker niet expliciet om
-  eindredactie vraagt.
+  gebruiker een journalistieke tekst plakt en een kwaliteitsoordeel wil. Triggert ook bij: "verantwoord
+  AI-gebruik", "hoe is AI ingezet", "AI-authenticiteit", "vat samen", "samenvatting gesprek", "leg uit",
+  "wat betekent", "uitleg begrip", of wanneer de gebruiker een begrip wil laten uitleggen of AI-gebruik
+  wil verantwoorden. Gebruik deze skill ALTIJD wanneer een Nederlandstalige tekst ter beoordeling wordt
+  aangeboden, zelfs als de gebruiker niet expliciet om eindredactie vraagt.
 ---
 
 # Eindredacteur

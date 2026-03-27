@@ -22,16 +22,19 @@ Triggert automatisch wanneer een Nederlandstalige tekst ter beoordeling wordt aa
 - Beoordelingsrapport met scores per categorie (1-5)
 - Gecorrigeerde tekst met inline correcties
 
-## Commands
+## Commands (v0.2.0)
 
-### /eindredactie
-Volledige eindredactie-pass. Doorloopt alle 4 fases, integreert met fact-check en source-verification skills, levert rapport + gecorrigeerde tekst.
+### Redactie
+- `/eindredactie` - Volledige eindredactie-pass op een tekst
+- `/transcriptie` - Transcriptie opschonen en corrigeren naar leesbaar Nederlands
+- `/kopij-check` - Snelle pre-publish check met compact rapport
 
-### /transcriptie
-Schoont een transcriptie op naar leesbaar Nederlands. Identificeert sprekers, corrigeert taal, structureert de tekst en extraheert bruikbare citaten.
+### Verantwoording
+- `/sum-AIauth` - AI-verantwoording voor portfolio's (1-1,5 alinea)
+- `/sumAI` - Samenvatting gehele gesprek + AI-verantwoording
 
-### /kopij-check
-Snelle pre-publish check. Scant op rode vlaggen, checkt lead en kop, doet lichte feitenverificatie. Levert een compact rapport met go/no-go oordeel.
+### Kennistools
+- `/leguit` - Begripsuitleg in standaardformat (korte uitleg, voorbeeld, bron, verdieping)
 
 ## Integratie met andere skills
 

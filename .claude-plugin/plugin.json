@@ -1,9 +1,9 @@
 {
   "name": "eindredacteur",
-  "version": "0.1.0",
-  "description": "Nederlandstalige journalistieke eindredactie - beoordelen, corrigeren en verbeteren van artikelen, transcripties en andere journalistieke producties.",
+  "version": "0.2.0",
+  "description": "Nederlandstalige journalistieke eindredactie - beoordelen, corrigeren, verantwoorden en uitleggen.",
   "author": {
     "name": "Jim van den Breemen"
   },
-  "keywords": ["journalistiek", "eindredactie", "copy-editing", "Nederlands"]
+  "keywords": ["journalistiek", "eindredactie", "copy-editing", "Nederlands", "AI-verantwoording"]
 }
