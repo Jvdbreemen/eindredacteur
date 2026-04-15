@@ -28,7 +28,7 @@ Het nieuwsbericht is het werkpaard van de journalistiek. Zakelijk, feitelijk, zo
 ### Lead-formule
 **Wie** deed/zei **wat**, **waar** en **wanneer**. Optioneel: **waarom** of **hoe**.
 
-Voorbeeld: "De gemeente Zwolle stelt de opening van het nieuwe stadskantoor uit tot september vanwege constructieproblemen."
+Voorbeeld [fictief]: "De gemeente Zwolle stelt de opening van het nieuwe stadskantoor uit tot september vanwege constructieproblemen."
 
 ---
 
@@ -196,6 +196,21 @@ Het essay is een beschouwende tekst waarin de auteur een onderwerp vanuit meerde
 - [ ] Conclusie volgt uit de argumentatie
 - [ ] Eigen stem zonder dogmatiek
 - [ ] Feiten verifieerbaar
+
+---
+
+## Hybride genres
+
+Veel journalistieke teksten combineren elementen uit meerdere genres. Behandel hybride genres als volgt:
+
+| Combinatie | Herkenning | Aanpak |
+|------------|-----------|--------|
+| Portret/interview-feature | Scenische opening, één centraal personage, veel citaten, narratieve structuur | Beoordeel op feature-eisen (scenisch, nut-graf, kicker) én interview-eisen (citaatbalans, fair portrettering) |
+| Nieuwsfeature | Nieuwsaanleiding met uitgewerkte scenes en menselijk perspectief | Lead moet de nieuwskern bevatten, daarna feature-structuur |
+| Reportage-interview | Ter plaatse, observaties verweven met citaten van betrokkenen | Beoordeel op zintuiglijke beschrijving én citaatkwaliteit |
+| Achtergrondverhaal | Analyserend, meerdere bronnen, context centraal, geen directe nieuwsaanleiding | Beoordeel op bronnen-diversiteit, structuur en nuance |
+
+Bij hybride genres: pas de checklists van beide relevante genres toe. Meld in het rapport welke genres je herkent en welke checklists je combineert.
 
 ---
 

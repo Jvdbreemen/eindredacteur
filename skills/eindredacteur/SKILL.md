@@ -1,16 +1,14 @@
 ---
 name: eindredacteur
 description: >
-  Nederlandstalige journalistieke eindredactie en tekstbeoordeling. Gebruik deze skill wanneer de gebruiker
-  een artikel, essay, nieuwsbericht, feature, reportage, column, transcript of andere tekst deelt ter
-  beoordeling, correctie of verbetering. Triggert ook bij: "beoordeel dit artikel", "eindredactie",
-  "redigeer", "check mijn tekst", "copy edit", "is dit publicatieklaar", "corrigeer", "redactie",
-  "review mijn stuk", "check dit stuk", "wat vind je van deze tekst", "verbeter dit", of wanneer de
-  gebruiker een journalistieke tekst plakt en een kwaliteitsoordeel wil. Triggert ook bij: "verantwoord
-  AI-gebruik", "hoe is AI ingezet", "AI-authenticiteit", "vat samen", "samenvatting gesprek", "leg uit",
-  "wat betekent", "uitleg begrip", of wanneer de gebruiker een begrip wil laten uitleggen of AI-gebruik
-  wil verantwoorden. Gebruik deze skill ALTIJD wanneer een Nederlandstalige tekst ter beoordeling wordt
-  aangeboden, zelfs als de gebruiker niet expliciet om eindredactie vraagt.
+  Nederlandstalige journalistieke eindredactie en tekstbeoordeling. Gebruik wanneer de gebruiker
+  een artikel, essay, nieuwsbericht, feature, reportage, column of transcript deelt ter
+  beoordeling, correctie of publicatie-check. Triggers: "eindredactie", "redigeer", "check mijn
+  tekst", "copy edit", "publicatieklaar", "corrigeer", "review", "verbeter dit", "wat vind je
+  van deze tekst". Gebruik ook wanneer een Nederlandstalige tekst ter beoordeling wordt
+  aangeboden zonder expliciete vraag. Voor specifieke deeltaken zijn er aparte skills:
+  /eindredactie (volledige pass), /kopij-check (snelle scan), /transcriptie, /koppen, /leguit,
+  /invalshoek, /interviewprep, /itemsheet, /script, /montage, /herschrijf, /sumai, /sum-aiauth.
 ---
 
 # Eindredacteur
@@ -54,7 +52,7 @@ Lees de volledige tekst zonder te corrigeren.
 - **Intentie begrijpen**: wat wil de auteur bereiken?
 - **Doelgroep identificeren**: voor wie is deze tekst? (vraag als onduidelijk)
 - **Publicatiekanaal**: print, online, social media? (vraag als onduidelijk)
-- Laad `${CLAUDE_PLUGIN_ROOT}/skills/eindredacteur/references/genre-eisen.md` voor de specifieke eisen van het gedetecteerde genre
+- Laad `references/genre-eisen.md` alleen als genre onduidelijk is of als het stuk waarschijnlijk genreconventies schendt
 
 ### Fase 2: STRUCTUUR
 
@@ -81,23 +79,26 @@ Beoordeel de architectuur van het stuk.
 - Hoofdkop: feitelijk, actief, informatief
 - Tussenkopjes: aanwezig bij stukken >500 woorden
 - Geen koppen die sterker zijn dan het artikel rechtvaardigt
-- Laad `${CLAUDE_PLUGIN_ROOT}/skills/eindredacteur/references/rode-vlaggen.md`
+- Laad `references/rode-vlaggen.md` alleen bij een vermoeden van rode vlaggen
 
 ### Fase 3: INHOUD
 
 Beoordeel de inhoudelijke kwaliteit.
 
-**Verificatie:**
-- Markeer alle feitelijke claims die gecheckt moeten worden
-- Controleer namen, functies, data, cijfers, plaatsnamen
-- Gebruik de fact-check-workflow skill bij verifieerbare claims
-- Gebruik WebSearch bij twijfel over specifieke feiten
+**Verificatie (claimlijst-first):**
+- Extraheer alle verifieerbare feitelijke claims: namen, functies, organisaties, data, cijfers, plaatsnamen, directe citaten, wetsartikelen, historische beweringen.
+- Rangschik elke claim op risico: Hoog (publicatieblokkerend als fout), Midden (schaadt geloofwaardigheid), Laag (context, common knowledge).
+- Noteer per claim een vermoeden (plausibel / twijfelachtig / verdacht) en een voorgestelde verificatieroute (lokale bron, web, contactpersoon, document).
+- **Voer geen automatische WebSearch of lokale bron-reads uit in de standaardrun.** Presenteer de claimlijst aan de gebruiker en vraag welke claims daadwerkelijk geverifieerd moeten worden.
+- Laad `references/verificatie.md` en `references/bronnen/OVERZICHT.md` pas wanneer de gebruiker om verificatie vraagt.
+- Als een claim zo verdacht is dat publicatie zonder check onverantwoord is, markeer dan `[PUBLICATIEBLOKKEREND]` met motivatie. Ook dan check je niet automatisch, maar dwing je een beslissing af.
+- Verzin nooit referenties, citaten, jaartallen of cijfers. Onverifieerde claims houden de status `[TE VERIFIEREN]`.
 
 **Brongebruik:**
 - Is elke claim geattribueerd aan een bron?
 - Zijn bronnen betrouwbaar en relevant?
-- Gebruik de source-verification skill bij onbekende of twijfelachtige bronnen
-- Zijn bronnen divers (niet alleen dezelfde persoon/organisatie)?
+- Alleen bij onbekende of verdachte bronnen: roep de source-verification skill aan.
+- Zijn bronnen divers (niet alleen dezelfde persoon of organisatie)?
 
 **Hoor en wederhoor:**
 - Zijn beide zijden aan het woord bij controversiële onderwerpen?
@@ -114,7 +115,7 @@ Beoordeel de inhoudelijke kwaliteit.
 - Privacy gerespecteerd? Proportionaliteit?
 - Geen discriminatie of stereotypering?
 - Scheiding feiten en opinie duidelijk?
-- Raadpleeg `${CLAUDE_PLUGIN_ROOT}/skills/eindredacteur/references/ethiek.md` bij twijfelgevallen
+- Laad `references/ethiek.md` alleen bij twijfelgevallen rond privacy, proportionaliteit, stereotypering of bronbescherming
 
 ### Fase 4: TAAL
 
@@ -143,90 +144,71 @@ Beoordeel en corrigeer de taalkundige kwaliteit.
 - Toon passend bij genre en publicatiekanaal
 
 **AI-patronen detecteren:**
-- Raadpleeg de ai-writing-detox skill
 - Scan op typische AI-schrijfpatronen: overmatig gebruik van "belangrijk", "cruciaal", "essentieel"
 - Check op lege transities, opsommingsziekte, gebrek aan concrete details
+- Alleen bij 3+ gedetecteerde patronen: roep de ai-writing-detox skill aan
 
 **Leesbaarheid:**
-- Raadpleeg `${CLAUDE_PLUGIN_ROOT}/skills/eindredacteur/references/taal-stijl.md` voor gedetailleerde regels
+- Alleen bij 3+ taalkundige twijfelgevallen: laad `references/taal-stijl.md`
 
 ---
 
 ## 3. Output format
 
-Lever altijd twee producten.
+**Default: feedback-only.** Lever een beoordelingsrapport met concrete verwijzingen naar locaties in het origineel. Lever **geen** volledige gecorrigeerde tekst, geen inline strikes of vet. De auteur verwerkt de correcties zelf. Alleen als de gebruiker er expliciet om vraagt, lever je een hertekst apart na het rapport.
 
-### Product 1: Beoordelingsrapport
+Zie `${CLAUDE_PLUGIN_ROOT}/skills/eindredactie/SKILL.md` voor de exacte rapportstructuur. De kern:
 
-```
-## Eindredactie-rapport: [titel]
+1. Scores per categorie (1-5)
+2. Sterke punten (max 3)
+3. Rode vlaggen (locatie + omschrijving)
+4. Actiepunten op prioriteit: Must / Should / Could fix
+5. Taalfouten compact per locatie (alleen de fragmenten die wijzigen, niet hele zinnen)
+6. Claimlijst met risico en voorgestelde verificatieroute (geen automatische WebSearch)
+7. Geraadpleegde references en sub-skills
 
-**Genre:** [gedetecteerd genre]
-**Publicatieklaar:** [Ja / Na revisie / Nee]
-**Totaalscore:** [1-5]
+Verwijs naar locaties per alinea-nummer plus eerste woorden of een kort citaatfragment.
 
-### Scores per categorie
-| Categorie | Score | Toelichting |
-|-----------|-------|-------------|
-| Feitelijke correctheid | [1-5] | [korte toelichting] |
-| Structuur & opbouw | [1-5] | [korte toelichting] |
-| Taal & stijl | [1-5] | [korte toelichting] |
-| Brongebruik & attributie | [1-5] | [korte toelichting] |
-| Ethiek | [1-5] | [korte toelichting] |
-| Genre-eisen | [1-5] | [korte toelichting] |
-| Koppen & bijschriften | [1-5] | [korte toelichting] |
-
-### Rode vlaggen
-[Lijst van gevonden rode vlaggen, als er geen zijn: "Geen rode vlaggen gevonden."]
-
-### Actiepunten
-[Genummerde lijst van concrete verbeterpunten, geordend op prioriteit]
-```
-
-Raadpleeg `${CLAUDE_PLUGIN_ROOT}/skills/eindredacteur/references/kwaliteitsschaal.md` voor de exacte definities per score-niveau.
-Raadpleeg `${CLAUDE_PLUGIN_ROOT}/skills/eindredacteur/references/rode-vlaggen.md` voor de volledige lijst van te detecteren rode vlaggen.
-
-### Product 2: Gecorrigeerde tekst
-
-De volledige tekst met alle correcties inline aangebracht:
-- ~~doorhaling~~ voor verwijderde tekst
-- **vet** voor toegevoegde tekst
-- [OPMERKING: ...] bij substantiële wijzigingen met uitleg waarom
-
-Behoud de structuur van het origineel. Verander geen woorden die correct zijn maar anders zijn dan jouw voorkeur. Corrigeer alleen daadwerkelijke fouten en verbeter alleen waar de tekst onduidelijk of incorrect is.
+Laad `references/kwaliteitsschaal.md` alleen bij twijfel over scoretoekenning.
+Laad `references/rode-vlaggen.md` alleen bij vermoeden van rode vlaggen.
 
 ---
 
 ## 4. Verwijzingen naar references
 
-Laad references on-demand, niet allemaal tegelijk:
+**Lazy-loading is verplicht.** Laad een reference alleen wanneer de concrete situatie erom vraagt. "Voor de zekerheid" laden is verboden: het vreet context en tokens zonder nut.
 
-| Reference | Wanneer laden |
-|-----------|---------------|
-| `references/taal-stijl.md` | Altijd bij fase 4 (taal) |
-| `references/genre-eisen.md` | Bij fase 1 zodra genre is bepaald |
-| `references/rode-vlaggen.md` | Bij fase 2-3 (structuur en inhoud) |
-| `references/kwaliteitsschaal.md` | Bij rapportage (output) |
-| `references/ethiek.md` | Bij fase 3 wanneer ethische kwesties spelen |
-| `references/digitaal.md` | Wanneer tekst voor online publicatie is |
+| Reference | Laad alleen wanneer |
+|-----------|---------------------|
+| `references/verificatie.md` | Je daadwerkelijk claims gaat verifieren (niet bij het opstellen van de claimlijst zelf) |
+| `references/bronnen/OVERZICHT.md` | Je een claim wilt koppelen aan een specifiek lokaal boek |
+| `references/bronnen/{boek}.md` | Je een concrete claim tegen dat boek gaat toetsen. Laad nooit meerdere boeken vooraf |
+| `references/taal-stijl.md` | Je 3+ taalkundige twijfelgevallen hebt die je niet met basiskennis kunt beoordelen |
+| `references/genre-eisen.md` | Genre onduidelijk is of het stuk waarschijnlijk genreconventies schendt |
+| `references/rode-vlaggen.md` | Je een vermoeden van rode vlaggen hebt |
+| `references/kwaliteitsschaal.md` | Je twijfelt over scoretoekenning |
+| `references/ethiek.md` | Privacy, stereotypering, proportionaliteit of bronbescherming spelen |
+| `references/digitaal.md` | Publicatiekanaal online of social is en digitale conventies ertoe doen |
 
-Gebruik altijd `${CLAUDE_PLUGIN_ROOT}/skills/eindredacteur/references/` als pad.
+Pad: `${CLAUDE_PLUGIN_ROOT}/skills/eindredacteur/references/`.
+
+Vuistregel: als je twijfelt of een reference nodig is, werk eerst zonder. Vermeld in het rapport welke references je hebt geraadpleegd, zodat de gebruiker kan inschatten waar je op koerste.
 
 ---
 
 ## 5. Integratie met bestaande skills
 
-De eindredacteur combineert met deze bestaande skills:
+Sub-skills worden **alleen op trigger** aangeroepen, niet standaard. Elke aanroep voegt context en tijd toe.
 
-| Skill | Wanneer | Doel |
-|-------|---------|------|
-| **ai-writing-detox** | Fase 4 | AI-schrijfpatronen detecteren en markeren |
-| **fact-check-workflow** | Fase 3 | Verifieerbare feitelijke claims controleren |
-| **source-verification** | Fase 3 | Twijfelachtige of onbekende bronnen beoordelen |
-| **editorial-workflow** | Na fase 4 | Pre-publish checklist als finale controle |
-| **newsroom-style** | Fase 4 | Engelse stijlregels wanneer tekst (deels) Engels is |
+| Skill | Trigger |
+|-------|---------|
+| **ai-writing-detox** | Je detecteert 3+ AI-patronen (lege transities, opsommingsziekte, cliche-cluster, overmatig "belangrijk/cruciaal/essentieel") |
+| **fact-check-workflow** | De gebruiker akkoord geeft om een specifieke, niet-triviale claim te verifieren |
+| **source-verification** | Een in het stuk gebruikte bron onbekend, verdacht of single-source is |
+| **editorial-workflow** | De gebruiker expliciet om een pre-publish checklist vraagt |
+| **newsroom-style** | De tekst (deels) Engels is en Engelstalige stijlregels ertoe doen |
 
-Roep deze skills aan wanneer de situatie erom vraagt. Vermeld in het rapport welke skills zijn geraadpleegd.
+Vermeld in het rapport welke sub-skills zijn geraadpleegd. Als je er geen aanroept, is dat het juiste gedrag.
 
 ---
 

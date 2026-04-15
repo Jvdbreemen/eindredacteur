@@ -1,9 +1,7 @@
 {
   "name": "eindredacteur",
-  "version": "0.2.0",
-  "description": "Nederlandstalige journalistieke eindredactie - beoordelen, corrigeren, verantwoorden en uitleggen.",
-  "author": {
-    "name": "Jim van den Breemen"
-  },
-  "keywords": ["journalistiek", "eindredactie", "copy-editing", "Nederlands", "AI-verantwoording"]
+  "version": "0.4.1",
+  "description": "Nederlandstalige journalistieke toolkit - eindredactie, voorbereiding, audio/video productie en verantwoording. Met verplichte verificatielaag, gebundelde lokale bronnen (7 vakboeken) en bronstatus tagging in elke output om hallucinaties te voorkomen.",
+  "license": "MIT",
+  "keywords": ["journalistiek", "eindredactie", "copy-editing", "Nederlands", "AI-verantwoording", "interview", "audio", "video", "productie", "bronverificatie", "fact-check", "hallucinatie-preventie"]
 }

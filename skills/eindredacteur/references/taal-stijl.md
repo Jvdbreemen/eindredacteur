@@ -146,6 +146,12 @@ Passief is acceptabel wanneer:
 - "Zei" als standaard (niet: aldus, benadrukte, verklaarde, onthulde, gaf aan)
 - "Volgens" voor indirecte attributie: "Volgens de woordvoerder is het budget..."
 - Na het citaat, niet ervoor: NIET "De wethouder zei: 'citaat'" MAAR "'Citaat,' zei de wethouder"
+- In features en portretten is "zegt" (tegenwoordige tijd) en "vertelt" gebruikelijk om nabijheid te creëren. Accepteer dit als bewuste stijlkeuze, mits consistent binnen het stuk.
+
+### Colloquiale constructies in kopij
+- "Thijs zijn muziek" (bezittelijke constructie met voornaam + zijn/haar) is spreektaal. In geschreven tekst: "Thijs' muziek" of "de muziek van Thijs".
+- "Waar hij mee klikte" is informeel. In geschreven tekst bij voorkeur: "met wie hij klikte". In features mag de informele variant als bewuste stijlkeuze.
+- "Gemixte" en soortgelijke anglicismen: vervang door standaard Nederlands ("gemengde") tenzij in een direct citaat.
 
 ---
 
