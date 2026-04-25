@@ -44,7 +44,7 @@ Triggert automatisch wanneer een Nederlandstalige tekst ter beoordeling wordt aa
 - Beoordelingsrapport met scores per categorie (1-5)
 - Gecorrigeerde tekst met inline correcties
 
-## Commands (v0.3.0)
+## Commands
 
 ### Redactie
 - `/eindredactie` - Volledige eindredactie-pass op een tekst

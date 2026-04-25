@@ -1,0 +1,8 @@
+.DS_Store
+*.zip
+*.plugin
+*.log
+.env
+.env.local
+node_modules/
+__pycache__/
